@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CardStore } from '../CardStore';
-import { ListSchema } from '../ListSchema';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { CardStore } from '../../stores/cardstore';
+import { ListSchema } from '../../schemas/listschema';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -8,7 +9,7 @@ import { ListSchema } from '../ListSchema';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  displayAddCard = false;
+  @ViewChild('f') slForm: NgForm;
   cardStore: CardStore;
   lists: ListSchema[];
   constructor() { }
@@ -35,7 +36,7 @@ export class BoardComponent implements OnInit {
         name: 'Needs Info',
         cards: []
       }
-    ]
+    ];
     this.lists = lists;
   }
 
@@ -43,13 +44,12 @@ export class BoardComponent implements OnInit {
     this.setMockData();
   }
 
-  toggleDisplayAddCard() {
-    this.displayAddCard = ! this.displayAddCard;
+  onSubmit(form: NgForm) {
+    const value = form.value;
+    const cardId =  this.cardStore.newCard(value.assignee, value.title);
+    this.lists[0].cards.push(cardId);
+    form.reset();
   }
 
-  onEnter(value: string) {
-    const cardId =  this.cardStore.newCard(value);
-    this.lists[0].cards.push(cardId);
-  }
 
 }

@@ -1,4 +1,4 @@
-import {CardSchema} from './cardschema';
+import {CardSchema} from '../schemas/cardschema';
 
 export class CardStore {
   cards: Object = {};
@@ -13,9 +13,10 @@ export class CardStore {
     return this.cards[cardId];
   }
 
-  newCard(description: string): string {
+  newCard(assignee: string, title: string): string {
     const card = new CardSchema();
-    card.description = description;
+    card.assignee = assignee;
+    card.title = title;
     return (this._addCard(card));
   }
 }

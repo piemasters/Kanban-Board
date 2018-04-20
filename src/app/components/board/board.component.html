@@ -1,0 +1,31 @@
+<div id="add-card-container" class="row h-25">
+
+  <div class="add-card">
+    <h3>New Ticket</h3>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="form-row align-items-center">
+        <div class="col-auto">
+          <label class="sr-only" for="assignee">Assignee</label>
+          <input type="text" id="assignee" class="form-control" name="assignee" placeholder="Assignee" ngModel required>
+        </div>
+        <div class="col-auto">
+          <label class="sr-only" for="title">Title</label>
+          <input type="text" id="title" class="form-control" name="title" placeholder="Ticket Title" ngModel required>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary form-control" type="submit" [disabled]="!f.valid">Add</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+</div>
+
+<div id="board-container" class="row justify-content-center h-75">
+  <app-list class="list col" *ngFor="let list of lists" [list]="list" [cardStore]="cardStore"></app-list>
+</div>
+
+
+
+

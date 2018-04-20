@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ListSchema } from '../ListSchema';
-import { CardStore } from '../CardStore';
+import { ListSchema } from '../../schemas/listschema';
+import { CardStore } from '../../stores/cardstore';
 
 @Component({
   selector: 'app-list',
@@ -25,9 +25,11 @@ export class ListComponent implements OnInit {
     const data = $event.dataTransfer.getData('text');
 
     let target = $event.target;
+
     const targetClassName = target.className;
 
-    while( target.className !== 'list') {
+    while ( target.classList.contains('list') ) {
+      console.log(target);
       target = target.parentNode;
     }
     target = target.querySelector('.cards');
